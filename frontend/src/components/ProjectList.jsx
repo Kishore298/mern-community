@@ -18,7 +18,7 @@ const ProjectList = ({ username }) => {
     useEffect(() => {
         const fetchProjects = async () => {
           try {
-            const result = await axios.get('http://localhost:5000/api/projects');
+            const result = await axios.get('https://mern-community-b5ik.onrender.com/api/projects');
             setProjects(result.data);
             toast.success("Projects loaded successfully!");
           } catch (error) {
@@ -51,7 +51,7 @@ const ProjectList = ({ username }) => {
     const handleEditSubmit = async (e) => {
         e.preventDefault();
         try {
-          await axios.put(`http://localhost:5000/api/projects/${editingProject}`, {
+          await axios.put(`https://mern-community-b5ik.onrender.com/api/projects/${editingProject}`, {
             ...editData,
             technologies: editData.technologies.split(',').map((tech) => tech.trim()), 
             author: username,
@@ -76,7 +76,7 @@ const ProjectList = ({ username }) => {
         const confirmDelete = window.confirm('Are you sure you want to delete this project?');
         if (confirmDelete) {
           try {
-            await axios.delete(`http://localhost:5000/api/projects/${id}`, {
+            await axios.delete(`https://mern-community-b5ik.onrender.com/api/projects/${id}`, {
               data: { author: username },
             });
             setProjects(projects.filter((project) => project._id !== id));

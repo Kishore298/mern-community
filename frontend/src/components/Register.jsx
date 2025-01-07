@@ -35,7 +35,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", formData);
+      await axios.post("https://mern-community-b5ik.onrender.com/api/auth/register", formData);
       toast.success("Registration successful!");
       navigate("/");
     } catch (error) {

@@ -28,7 +28,7 @@ const AddResourceForm = ({ setShowAddResourceForm, fetchResources }) => {
     }
   
     try {
-      await axios.post("http://localhost:5000/api/submitResource", formData, {
+      await axios.post("https://mern-community-b5ik.onrender.com/api/submitResource", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -16,7 +16,7 @@ const ResourceList = () => {
 
   const fetchResources = useCallback(() => { 
     const queryParams = new URLSearchParams(filters).toString();
-    fetch(`http://localhost:5000/api/resources?${queryParams}`)
+    fetch(`https://mern-community-b5ik.onrender.com/api/resources?${queryParams}`)
       .then((response) => response.json())
       .then((data) => {
         setResources(data);

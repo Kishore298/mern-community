@@ -35,7 +35,7 @@ const DeveloperDirectory = () => {
           ...filters,
           page: currentPage,
         }).toString();
-        const { data } = await axios.get(`http://localhost:5000/api/developers?${query}`);
+        const { data } = await axios.get(`https://mern-community-b5ik.onrender.com/api/developers?${query}`);
         const developersWithImages = assignImagesToDevelopers(data.developers);
         setDevelopers(developersWithImages);
         setTotalPages(data.totalPages);
@@ -69,7 +69,7 @@ const DeveloperDirectory = () => {
   const handleCardClick = async (developerId) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/developers/${developerId}`
+        `https://mern-community-b5ik.onrender.com/api/developers/${developerId}`
       );
       const developerIndex = developers.findIndex(
         (dev) => dev._id === developerId

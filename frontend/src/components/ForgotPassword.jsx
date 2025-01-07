@@ -17,7 +17,7 @@ const ForgotPassword = () => {
   
     try {
       if (step === 1) {
-        await axios.post("http://localhost:5000/api/auth/forgot-password", {
+        await axios.post("https://mern-community-b5ik.onrender.com/api/auth/forgot-password", {
           email,
           newPassword,
         });

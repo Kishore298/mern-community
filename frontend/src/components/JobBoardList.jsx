@@ -8,7 +8,7 @@ const JobBoardList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/jobboards")
+      .get("https://mern-community-b5ik.onrender.com/api/jobboards")
       .then((response) => {
         setJobBoards(response.data);
         toast.success("Job boards fetched successfully!");

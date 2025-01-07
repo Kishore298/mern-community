@@ -20,7 +20,7 @@ const ProjectForm = ({ username }) => {
         }
       
         try {
-          await axios.post('http://localhost:5000/api/projects', {
+          await axios.post('https://mern-community-b5ik.onrender.com/api/projects', {
             name,
             description,
             githubLink,
