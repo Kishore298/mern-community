@@ -2,15 +2,15 @@ const Project = require('../models/Project');
 
 // Add a new project
 const addProject = async (req, res) => {
-    const { name, description, githubLink, liveDemo, technologies, author } = req.body;
+    const { title, description, githubLink, liveDemo, technologies, createdBy } = req.body;
 
     const newProject = new Project({
-        name,
+        title,
         description,
         githubLink,
         liveDemo,
         technologies,
-        author,
+        createdBy,
     });
 
     try {
@@ -24,22 +24,23 @@ const addProject = async (req, res) => {
 // Get all projects
 const getProjects = async (req, res) => {
     try {
-        const projects = await Project.find();
+        const projects = await Project.find().populate('createdBy', 'username');
         res.status(200).json(projects);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
-// Edit a project (only for the author)
+// Edit a project (only for the creator)
 const editProject = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id);
-        if (project.author !== req.body.author) {
-            return res.status(403).json({ message: 'You are not the author of this project.' });
+
+        if (project.createdBy.toString() !== req.body.createdBy) {
+            return res.status(403).json({ message: 'You are not the creator of this project.' });
         }
 
-        project.name = req.body.name || project.name;
+        project.title = req.body.title || project.title;
         project.description = req.body.description || project.description;
         project.githubLink = req.body.githubLink || project.githubLink;
         project.liveDemo = req.body.liveDemo || project.liveDemo;
@@ -52,12 +53,13 @@ const editProject = async (req, res) => {
     }
 };
 
-// Delete a project (only for the author)
+// Delete a project (only for the creator)
 const deleteProject = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id);
-        if (project.author !== req.body.author) {
-            return res.status(403).json({ message: 'You are not the author of this project.' });
+
+        if (project.createdBy.toString() !== req.body.createdBy) {
+            return res.status(403).json({ message: 'You are not the creator of this project.' });
         }
 
         await project.remove();

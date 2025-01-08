@@ -4,55 +4,52 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from "react-toastify";
 
 const ProjectForm = ({ username }) => {
-    const [name, setName] = useState('');
+    const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [githubLink, setGithubLink] = useState('');
     const [liveDemo, setLiveDemo] = useState('');
     const [technologies, setTechnologies] = useState('');
-    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-      
-        if (!name || !description || !githubLink || !technologies || !username) {
-          toast.error("All fields are required!");
-          return;
+
+        if (!title || !description || !githubLink || !technologies || !username) {
+            toast.error("All fields except Live Demo are required!");
+            return;
         }
-      
+
         try {
-          await axios.post('https://mern-community-b5ik.onrender.com/api/projects', {
-            name,
-            description,
-            githubLink,
-            liveDemo,
-            technologies: technologies.split(','),
-            author: username,
-          });
-      
-          toast.success("Project submitted successfully!");
-          setName('');
-          setDescription('');
-          setGithubLink('');
-          setLiveDemo('');
-          setTechnologies('');
+            await axios.post('/api/projects', {
+                title,
+                description,
+                githubLink,
+                liveDemo,
+                technologies: technologies.split(',').map((tech) => tech.trim()),
+                createdBy: username,
+            });
+
+            toast.success("Project submitted successfully!");
+            setTitle('');
+            setDescription('');
+            setGithubLink('');
+            setLiveDemo('');
+            setTechnologies('');
         } catch (error) {
-          toast.error("Failed to submit project.");
-          console.error("Error submitting project:", error);
+            toast.error("Error submitting project.");
+            console.error("Error submitting project:", error);
         }
-      };
-      
+    };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 mt-16">
             <div className="space-y-4 max-w-md mx-auto p-4 border shadow-lg rounded-lg bg-white">
                 <h2 className="text-2xl font-semibold text-center text-teal-500 mb-4">Submit Your Project</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {error && <div className="text-red-500">{error}</div>}
                     <input
                         type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Project Name *"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Project Title *"
                         className="w-full p-2 border rounded"
                         required
                     />
@@ -75,9 +72,8 @@ const ProjectForm = ({ username }) => {
                         type="text"
                         value={liveDemo}
                         onChange={(e) => setLiveDemo(e.target.value)}
-                        placeholder="Live Demo Link *"
+                        placeholder="Live Demo Link (optional)"
                         className="w-full p-2 border rounded"
-                        required
                     />
                     <input
                         type="text"
@@ -97,5 +93,3 @@ const ProjectForm = ({ username }) => {
 };
 
 export default ProjectForm;
-
-

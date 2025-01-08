@@ -1,19 +1,13 @@
 const Resource = require('../models/resourceModel');
-const path = require('path');
-const fs = require('fs');
 
-// Fetch resources based on filters, search, and sorting
 exports.getResources = async (req, res) => {
   try {
     const { topic, type, category, search, sort } = req.query;
 
-    const query = {};
-    if (topic) query.topic = topic;
-    if (type) query.type = type;
+    const query = { type: 'YouTube' };  // Only fetch YouTube resources
+    if (topic) query.topic = { $in: topic.split(',') };  // Allow multiple topic filters
     if (category) query.category = category;
-    if (search) {
-      query.title = { $regex: search, $options: 'i' }; 
-    }
+    if (search) query.title = { $regex: search, $options: 'i' };  // Case-insensitive search
 
     const sortOption = sort ? { [sort]: 1 } : { createdAt: -1 };
 
@@ -28,32 +22,35 @@ exports.getResources = async (req, res) => {
 
 exports.submitResource = (req, res) => {
   try {
-    // Log the incoming request data
-    console.log('Received data:', req.body);
-    console.log('File:', req.file);
+    const { title, type, url, topic, category } = req.body;
 
-    // Perform server-side validation
-    if (!req.body.title || !req.body.type || !req.body.category || !req.body.topic) {
+    // Validate incoming data
+    if (!title || !type || !url || !topic || !category) {
       return res.status(400).send('Missing required fields');
     }
 
-    // Process the resource data (save to DB, etc.)
-    // Example: log the resource details for now
-    console.log('Resource to save:', {
-      title: req.body.title,
-      type: req.body.type,
-      topic: req.body.topic,
-      category: req.body.category,
-      file: req.file ? req.file.filename : null,
+    if (type !== 'YouTube') {
+      return res.status(400).send('Only YouTube resources are allowed');
+    }
+
+    const resource = new Resource({
+      title,
+      type,
+      url,
+      topic: topic.split(','),
+      category,
     });
 
-    // Here you can add logic to save the resource data to the database
+    // Save the resource to the database
+    resource.save().then(() => {
+      res.status(200).send('Resource submitted successfully!');
+    }).catch((error) => {
+      console.error('Error saving resource:', error);
+      res.status(500).send('Error submitting resource');
+    });
 
-    // Send a success response
-    res.status(200).send('Resource submitted successfully!');
   } catch (error) {
     console.error('Error processing resource:', error);
     res.status(500).send('Error submitting resource');
   }
 };
-

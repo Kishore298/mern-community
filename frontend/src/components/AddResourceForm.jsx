@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 const AddResourceForm = ({ setShowAddResourceForm, fetchResources }) => {
   const [newResource, setNewResource] = useState({
     title: "",
-    type: "PDF",
+    type: "YouTube",
     url: "",
-    topic: "",
+    topics: [],
     category: "",
   });
 
@@ -18,12 +18,10 @@ const AddResourceForm = ({ setShowAddResourceForm, fetchResources }) => {
     const formData = new FormData();
     formData.append("title", newResource.title);
     formData.append("type", newResource.type);
-    formData.append("topic", newResource.topic);
     formData.append("category", newResource.category);
+    formData.append("topics", JSON.stringify(newResource.topics)); // Store multiple topics
   
-    if (newResource.type === "PDF" && newResource.file) {
-      formData.append("pdf", newResource.file);
-    } else if (newResource.type === "YouTube") {
+    if (newResource.type === "YouTube" && newResource.url) {
       formData.append("url", newResource.url);
     }
   
@@ -71,26 +69,6 @@ const AddResourceForm = ({ setShowAddResourceForm, fetchResources }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          {/* Type */}
-          <div>
-            <label
-              htmlFor="type"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Type
-            </label>
-            <select
-              id="type"
-              value={newResource.type}
-              onChange={(e) =>
-                setNewResource({ ...newResource, type: e.target.value })
-              }
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="PDF">PDF</option>
-              <option value="YouTube">YouTube</option>
-            </select>
-          </div>
           {/* Category */}
           <div>
             <label
@@ -112,25 +90,7 @@ const AddResourceForm = ({ setShowAddResourceForm, fetchResources }) => {
               <option value="Practice">Practice</option>
             </select>
           </div>
-          {/* File or URL */}
-          {newResource.type === "PDF" && (
-            <div>
-              <label
-                htmlFor="file"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Upload PDF
-              </label>
-              <input
-                id="file"
-                type="file"
-                onChange={(e) =>
-                  setNewResource({ ...newResource, file: e.target.files[0] })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          )}
+          {/* YouTube URL */}
           {newResource.type === "YouTube" && (
             <div>
               <label
@@ -152,23 +112,26 @@ const AddResourceForm = ({ setShowAddResourceForm, fetchResources }) => {
               />
             </div>
           )}
-          {/* Topic */}
+          {/* Topics (Multiple Selection) */}
           <div>
             <label
-              htmlFor="topic"
+              htmlFor="topics"
               className="block text-sm font-medium text-gray-700"
             >
-              Topic
+              Topics
             </label>
             <select
-              id="topic"
-              value={newResource.topic}
+              id="topics"
+              multiple
+              value={newResource.topics}
               onChange={(e) =>
-                setNewResource({ ...newResource, topic: e.target.value })
+                setNewResource({
+                  ...newResource,
+                  topics: Array.from(e.target.selectedOptions, option => option.value),
+                })
               }
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="">All Topics</option>
               <option value="HTML">HTML</option>
               <option value="CSS">CSS</option>
               <option value="JavaScript">JavaScript</option>
@@ -227,3 +190,4 @@ const AddResourceForm = ({ setShowAddResourceForm, fetchResources }) => {
 };
 
 export default AddResourceForm;
+

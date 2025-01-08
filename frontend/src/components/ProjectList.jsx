@@ -29,17 +29,16 @@ const ProjectList = ({ username }) => {
       
         fetchProjects();
       }, []);
-      
 
     const handleEdit = (id) => {
         const project = projects.find((p) => p._id === id);
         setEditingProject(id);
         setEditData({
-            name: project.name,
+            title: project.title,
             description: project.description,
             githubLink: project.githubLink,
             liveDemo: project.liveDemo,
-            technologies: project.technologies.join(', '), 
+            technologies: project.technologies.join(', '),
         });
     };
 
@@ -47,29 +46,30 @@ const ProjectList = ({ username }) => {
         const { name, value } = e.target;
         setEditData((prev) => ({ ...prev, [name]: value }));
     };
-
+    
     const handleEditSubmit = async (e) => {
         e.preventDefault();
         try {
-          await axios.put(`https://mern-community-b5ik.onrender.com/api/projects/${editingProject}`, {
-            ...editData,
-            technologies: editData.technologies.split(',').map((tech) => tech.trim()), 
-            author: username,
-          });
-          setProjects((prev) =>
-            prev.map((project) =>
-              project._id === editingProject
-                ? { ...project, ...editData, technologies: editData.technologies.split(',').map((tech) => tech.trim()) }
-                : project
-            )
-          );
-          setEditingProject(null);
-          toast.success("Project updated successfully!");
+            await axios.put(`/api/projects/${editingProject}`, {
+                ...editData,
+                technologies: editData.technologies.split(',').map((tech) => tech.trim()),
+                createdBy: username,
+            });
+            setProjects((prev) =>
+                prev.map((project) =>
+                    project._id === editingProject
+                        ? { ...project, ...editData, technologies: editData.technologies.split(',').map((tech) => tech.trim()) }
+                        : project
+                )
+            );
+            setEditingProject(null);
+            toast.success("Project updated successfully!");
         } catch (error) {
-          toast.error("Error updating project.");
-          console.error("Error updating project:", error);
+            toast.error("Error updating project.");
+            console.error("Error updating project:", error);
         }
-      };
+    };
+    
       
 
     const handleDelete = async (id) => {

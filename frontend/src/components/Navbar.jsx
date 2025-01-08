@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import jwtDecode from "jwt-decode";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setUsername(decodedToken?.name || "User");
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    }
+  }, []);
+
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
+    localStorage.removeItem("token");
     navigate("/");
   };
 
@@ -16,7 +31,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="text-teal-400 text-2xl font-bold">MERN Dev's Hub</div>
 
-        {/* Navbar Links & Hamburger Menu */}
+        {/* Navbar Links & User Info */}
         <div className="hidden md:flex space-x-6 text-md text-teal-400">
           <Link to="/home" className="block text-teal-400 py-2">
             Home
@@ -38,6 +53,7 @@ const Navbar = () => {
           </Link>
           <div className="flex items-center space-x-3">
             <FaUserCircle className="text-teal-400 text-2xl" />
+            <span className="text-teal-600 font-semibold">{username}</span>
             <button
               onClick={handleLogout}
               className="flex items-center space-x-1 text-teal-400 hover:text-teal-900"
@@ -79,6 +95,7 @@ const Navbar = () => {
           </Link>
           <div className="flex items-center space-x-3 mt-4">
             <FaUserCircle className="text-white text-2xl text-teal-400" />
+            <span className="text-teal-400 font-semibold">{username}</span>
             <button
               onClick={handleLogout}
               className="flex items-center text-teal-400 space-x-1 hover:text-teal-900"
@@ -93,3 +110,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

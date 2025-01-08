@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 const ResourceList = () => {
@@ -14,9 +14,11 @@ const ResourceList = () => {
   });
   const navigate = useNavigate();
 
-  const fetchResources = useCallback(() => { 
+  const fetchResources = useCallback(() => {
     const queryParams = new URLSearchParams(filters).toString();
-    fetch(`https://mern-community-b5ik.onrender.com/api/resources?${queryParams}`)
+    fetch(
+      `https://mern-community-b5ik.onrender.com/api/resources?${queryParams}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setResources(data);
@@ -27,14 +29,21 @@ const ResourceList = () => {
         toast.error("Failed to fetch resources.");
       });
   }, [filters]);
-  
 
   useEffect(() => {
     fetchResources();
   }, [fetchResources]);
 
   const handleFilterChange = (e) => {
-    setFilters({ ...filters, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "topic") {
+      setFilters({
+        ...filters,
+        [name]: Array.from(e.target.selectedOptions, (option) => option.value),
+      });
+    } else {
+      setFilters({ ...filters, [name]: value });
+    }
   };
 
   return (
@@ -65,9 +74,9 @@ const ResourceList = () => {
             name="topic"
             value={filters.topic}
             onChange={handleFilterChange}
+            multiple
             className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">All Topics</option>
             <option value="HTML">HTML</option>
             <option value="CSS">CSS</option>
             <option value="JavaScript">JavaScript</option>
@@ -102,6 +111,7 @@ const ResourceList = () => {
             <option value="ThreeJS">Three.js</option>
             <option value="Prisma">Prisma</option>
           </select>
+
           <select
             name="category"
             value={filters.category}
@@ -149,9 +159,20 @@ const ResourceList = () => {
                 <h2 className="text-lg font-semibold text-gray-800">
                   {resource.title}
                 </h2>
-                <p className="text-gray-600">
-                  {resource.topic} - {resource.category}
-                </p>
+                <p className="text-gray-600">{resource.topic.join(", ")}</p>
+                <div className="mt-4">
+                  <iframe
+                    width="100%"
+                    height="315"
+                    src={`https://www.youtube.com/embed/${
+                      resource.url.split("v=")[1]
+                    }`}
+                    className="border-0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title={resource.title}
+                  ></iframe>
+                </div>
               </div>
             ))
           ) : (
