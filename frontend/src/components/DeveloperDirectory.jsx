@@ -101,7 +101,7 @@ const DeveloperDirectory = () => {
           placeholder="Filter by skills (comma separated)"
           value={filters.skillsets}
           onChange={handleFilterChange}
-          className="border border-md border-gray-400 p-2 rounded mb-2 lg:mb-0"
+          className="border border-md border-gray-400 p-2 w-44 rounded mb-2 lg:mb-0"
         />
         <input
           type="number"

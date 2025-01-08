@@ -72,7 +72,7 @@ const Navbar = () => {
 
       {/* Hamburger Menu Dropdown (Mobile) */}
       {isMenuOpen && (
-        <div className="absolute top-16 sticky left-0 text-md w-full bg-white/30 backdrop-blur-md z-20 md:hidden">
+        <div className="absolute top-18 sticky left-0 text-md w-full bg-white/30 backdrop-blur-md z-20 md:hidden">
           <Link to="/home" className="block text-teal-400 py-2">
             Home
           </Link>
@@ -89,7 +89,7 @@ const Navbar = () => {
             About
           </Link>
           <div className="flex items-center space-x-3 mt-4">
-            <FaUserCircle className="text-white text-2xl text-teal-400" />
+            <FaUserCircle className="text-teal-500 text-2xl text-teal-400" />
             <span className="text-teal-400 font-semibold">{username}</span>
             <button
               onClick={handleLogout}

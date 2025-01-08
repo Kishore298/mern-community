@@ -20,47 +20,55 @@ const JobBoardList = () => {
   }, []);
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 mt-16 flex justify-center items-center">
-      {jobBoards.length === 0 ? (
-        <p className="text-gray-600 text-center">No job boards available.</p>
-      ) : (
-        <ul className="space-y-4">
-          {jobBoards.map((job, index) => (
-            <li key={job._id} className="flex items-start space-x-4">
-              <div className="text-lg font-bold text-gray-700">
-                {index + 1}.
-              </div>
-              <div className="w-full flex items-center space-x-4">
-                <img
-                  src={job.logoUrl}
-                  alt={`${job.name} Logo`}
-                  loading="lazy"
-                  className="h-20 w-20 object-contain"
-                />
-                <div>
-                  <h3 className="text-xl font-semibold text-blue-600">
-                    <a
-                      href={job.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {job.name}
-                    </a>
-                  </h3>
-                  <p className="text-sm text-gray-500 mt-1">
-                    {job.description}
-                  </p>
-                  <p className="text-sm text-gray-400 mt-1">
-                    Why try: {job.reasonToTry}
-                  </p>
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="w-11/12 md:w-3/5 bg-white p-6 mt-16 mb-4">
+        {/* Heading at the top center */}
+        <h1 className="text-2xl lg:text-6xl font-bold text-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-6">
+          Job Boards
+        </h1>
+
+        {jobBoards.length === 0 ? (
+          <p className="text-gray-600 text-center">No job boards available.</p>
+        ) : (
+          <ul className="space-y-6">
+            {jobBoards.map((job, index) => (
+              <li key={job._id} className="flex items-start space-x-6">
+                <div className="text-lg font-bold text-gray-700">
+                  {index + 1}.
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+                <div className="w-full flex items-center space-x-6">
+                  <img
+                    src={job.logoUrl}
+                    alt={`${job.name} Logo`}
+                    loading="lazy"
+                    className="h-20 w-20 object-contain"
+                  />
+                  <div>
+                    <h3 className="text-2xl font-semibold text-blue-600">
+                      <a
+                        href={job.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {job.name}
+                      </a>
+                    </h3>
+                    <p className="text-lg text-gray-500 mt-1">
+                      {job.description}
+                    </p>
+                    <p className="text-md text-gray-400 mt-1">
+                      Why try: {job.reasonToTry}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
 
 export default JobBoardList;
+
