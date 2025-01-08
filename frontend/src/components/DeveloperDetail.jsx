@@ -19,7 +19,7 @@ const DeveloperDetail = ({ developer }) => {
   };
 
   return (
-    <div className="w-[95%] lg:w-[50%] p-4 mt-16 mb-4 border place-self-center flex flex-col items-start justify-center rounded-lg shadow-md border border-md border-gray-400">
+    <div className="w-[95%] lg:w-[50%] p-4 mt-4 mb-8 border place-self-center flex flex-col items-start justify-center rounded-lg shadow-md border border-md border-gray-400">
       <img
         src={developer.image}
         alt={`${developer.name}'s avatar`}
