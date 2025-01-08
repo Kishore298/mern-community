@@ -53,7 +53,7 @@ const App = () => {
             />
             <Route
               path="/add-resource"
-              element={<PrivateRoute element={<ResourceForm />} />} // Updated to use ResourceForm
+              element={<PrivateRoute element={<ResourceForm />} />}
             />
             <Route
               path="/home"
