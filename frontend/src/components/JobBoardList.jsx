@@ -21,11 +21,6 @@ const JobBoardList = () => {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mt-16 flex justify-center items-center">
-      {/* Job Boards Heading */}
-      <h2 className="text-2xl text-center font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-4">
-        Job Boards
-      </h2>
-
       {jobBoards.length === 0 ? (
         <p className="text-gray-600 text-center">No job boards available.</p>
       ) : (

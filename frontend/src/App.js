@@ -14,6 +14,7 @@ import ProjectForm from './components/ProjectForm';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import PrivateRoute from './components/ProtectedRoute';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const App = () => {
 
   return (
     <>
+     <ToastContainer autoClose={3000} />
       {shouldShowNavbar && <Navbar />}
       <div className="App">
         <main>
