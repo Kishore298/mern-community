@@ -7,7 +7,7 @@ import DeveloperCard from './components/DeveloperCard';
 import DeveloperDirectory from './components/DeveloperDirectory';
 import DeveloperDetails from './components/DeveloperDetail';
 import ResourceList from './components/ResourceList';
-import AddResourceForm from './components/AddResourceForm';
+import ResourceForm from './components/ResourceForm'; // Updated import
 import JobBoardList from './components/JobBoardList';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
@@ -53,7 +53,7 @@ const App = () => {
             />
             <Route
               path="/add-resource"
-              element={<PrivateRoute element={<AddResourceForm />} />}
+              element={<PrivateRoute element={<ResourceForm />} />} // Updated to use ResourceForm
             />
             <Route
               path="/home"
@@ -77,4 +77,3 @@ const AppWrapper = () => (
 );
 
 export default AppWrapper;
-

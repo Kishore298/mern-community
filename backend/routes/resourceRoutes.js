@@ -1,20 +1,11 @@
 const express = require('express');
-const multer = require('multer');
-const { getResources, submitResource } = require('../controllers/resourceController');
-
 const router = express.Router();
+const resourceController = require('../controllers/resourceController');
 
-// Multer setup for file uploads (PDFs)
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, './uploads/'),
-  filename: (req, file, cb) => cb(null, file.originalname),
-});
+// Get all resources
+router.get('/', resourceController.getAllResources);
 
-const upload = multer({ storage: storage });
-
-// Routes
-router.get('/resources', getResources);
-router.post('/submitResource', upload.single('pdf'), submitResource);
+// Add a new resource
+router.post('/', resourceController.addResource);
 
 module.exports = router;
-
