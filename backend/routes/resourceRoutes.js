@@ -3,9 +3,9 @@ const router = express.Router();
 const resourceController = require('../controllers/resourceController');
 
 // Get all resources
-router.get('/', resourceController.getAllResources);
+router.get('/resources', resourceController.getAllResources);
 
 // Add a new resource
-router.post('/', resourceController.addResource);
+router.post('/add-resource', resourceController.addResource);
 
 module.exports = router;
