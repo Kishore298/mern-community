@@ -11,7 +11,7 @@ import AddResourceForm from './components/AddResourceForm';
 import JobBoardList from './components/JobBoardList';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import PrivateRoute from './components/PrivateRoute'; // Ensure correct import
+import PrivateRoute from './components/ProtectedRoute'; 
 import { ToastContainer } from 'react-toastify';
 
 const App = () => {
