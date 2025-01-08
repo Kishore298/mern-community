@@ -3,7 +3,7 @@ import { FaTools, FaBriefcase, FaPhone, FaEnvelope } from 'react-icons/fa';
 
 const DeveloperCard = ({ developer, onClick }) => (
   <div className="border border-lg border-gray-400 rounded-lg p-4 shadow-md cursor-pointer" onClick={() => onClick(developer)}>
-    <img src={developer.image} alt={`${developer.name}'s avatar`} className="w-full h-64 object-cover rounded-lg mb-4" />
+    <img src={developer.image} alt={`${developer.name}'s avatar`} loading="lazy" className="w-full h-64 object-cover rounded-lg mb-4" />
     <h3 className="text-xl font-bold mb-2">{developer.name}</h3>
     
     <p className='flex items-center mb-2'>

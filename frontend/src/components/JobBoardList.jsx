@@ -34,6 +34,7 @@ const JobBoardList = () => {
                 <img
                   src={job.logoUrl}
                   alt={`${job.name} Logo`}
+                  loading="lazy"
                   className="h-20 w-20 object-contain"
                 />
                 <div>

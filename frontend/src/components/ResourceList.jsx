@@ -32,7 +32,7 @@ const ResourceList = () => {
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <div className="flex flex-col items-center justify-start min-h-[20vh] pt-8">
-        <h2 className="text-3xl font-semibold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-4">
+        <h2 className="text-3xl font-semibold bg-gradient-to-r mt-2 from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-4">
           Resources
         </h2>
         <p className="mb-6 text-gray-600 text-center">

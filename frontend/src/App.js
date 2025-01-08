@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Register from './components/Register';
-import Login from './components/Login';
-import ForgotPassword from './components/ForgotPassword';
-import DeveloperCard from './components/DeveloperCard';
-import DeveloperDirectory from './components/DeveloperDirectory';
-import DeveloperDetails from './components/DeveloperDetail';
-import ResourceList from './components/ResourceList';
-import ResourceForm from './components/ResourceForm'; // Updated import
-import JobBoardList from './components/JobBoardList';
-import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import PrivateRoute from './components/ProtectedRoute'; 
+import PrivateRoute from './components/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Lazy-loaded components
+const Register = lazy(() => import('./components/Register'));
+const Login = lazy(() => import('./components/Login'));
+const ForgotPassword = lazy(() => import('./components/ForgotPassword'));
+const DeveloperCard = lazy(() => import('./components/DeveloperCard'));
+const DeveloperDirectory = lazy(() => import('./components/DeveloperDirectory'));
+const DeveloperDetails = lazy(() => import('./components/DeveloperDetail'));
+const ResourceList = lazy(() => import('./components/ResourceList'));
+const ResourceForm = lazy(() => import('./components/ResourceForm'));
+const JobBoardList = lazy(() => import('./components/JobBoardList'));
+const Home = lazy(() => import('./pages/Home'));
 
 const App = () => {
   const location = useLocation();
 
-  // Define the paths where the Navbar should not be displayed
+  // Defined the paths where the Navbar should not be displayed
   const excludedPaths = ['/', '/register', '/forgot-password'];
 
-  // Check if the current path matches any of the excluded paths
+  // Checks if the current path matches any of the excluded paths
   const shouldShowNavbar = !excludedPaths.includes(location.pathname);
 
   return (
@@ -29,41 +32,44 @@ const App = () => {
       {shouldShowNavbar && <Navbar />}
       <div className="App">
         <main>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* Wrap the routes with Suspense for lazy loading */}
+          <Suspense fallback={<div className="text-center mt-20">Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
 
-            {/* Use PrivateRoute for protected pages */}
-            <Route
-              path="/developer-card"
-              element={<PrivateRoute element={<DeveloperCard />} />}
-            />
-            <Route
-              path="/developer-directory"
-              element={<PrivateRoute element={<DeveloperDirectory />} />}
-            />
-            <Route
-              path="/developer-details/:id"
-              element={<PrivateRoute element={<DeveloperDetails />} />}
-            />
-            <Route
-              path="/resources"
-              element={<PrivateRoute element={<ResourceList />} />}
-            />
-            <Route
-              path="/add-resource"
-              element={<PrivateRoute element={<ResourceForm />} />}
-            />
-            <Route
-              path="/home"
-              element={<PrivateRoute element={<Home />} />}
-            />
-            <Route
-              path="/job-board"
-              element={<PrivateRoute element={<JobBoardList />} />}
-            />
-          </Routes>
+              {/* Use PrivateRoute for protected pages */}
+              <Route
+                path="/developer-card"
+                element={<PrivateRoute element={<DeveloperCard />} />}
+              />
+              <Route
+                path="/developer-directory"
+                element={<PrivateRoute element={<DeveloperDirectory />} />}
+              />
+              <Route
+                path="/developer-details/:id"
+                element={<PrivateRoute element={<DeveloperDetails />} />}
+              />
+              <Route
+                path="/resources"
+                element={<PrivateRoute element={<ResourceList />} />}
+              />
+              <Route
+                path="/add-resource"
+                element={<PrivateRoute element={<ResourceForm />} />}
+              />
+              <Route
+                path="/home"
+                element={<PrivateRoute element={<Home />} />}
+              />
+              <Route
+                path="/job-board"
+                element={<PrivateRoute element={<JobBoardList />} />}
+              />
+            </Routes>
+          </Suspense>
         </main>
       </div>
     </>
