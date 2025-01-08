@@ -22,6 +22,7 @@ exports.addResource = async (req, res) => {
     const savedResource = await resource.save();
     res.status(201).json(savedResource);
   } catch (error) {
+    console.error('Error adding resource:', error);
     res.status(400).json({ message: error.message });
-  }
+  }  
 };

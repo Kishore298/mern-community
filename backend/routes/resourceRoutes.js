@@ -6,6 +6,6 @@ const resourceController = require('../controllers/resourceController');
 router.get('/resources', resourceController.getAllResources);
 
 // Add a new resource
-router.post('/add-resource', resourceController.addResource);
+router.post('/resources', resourceController.addResource);
 
 module.exports = router;

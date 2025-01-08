@@ -39,12 +39,9 @@ const generatePassword = async (password) => {
 
 const seedDatabase = async () => {
   try {
-    // Clear existing users
-    await User.deleteMany();
-    await jobBoard.deleteMany();
-    console.log('Existing users and job boards are cleared.');;
+    const existingUsers = await User.find({});
 
-    // Realistic user data related to MERN stack development
+    if (existingUsers.length === 0) {
     const dummyUsers = [
       {
         name: 'Alice Johnson',
@@ -419,13 +416,16 @@ const seedDatabase = async () => {
       }
     ];
 
-    // Insert dummy users into the database
     await User.insertMany(dummyUsers);
-    console.log('Dummy users added to the database.');
+      console.log('Users seeded successfully');
+    } else {
+      console.log('Users already exist, skipping user seeding.');
+    }
 
-    const userModel = await User.find();
+    const existingJobBoards = await jobBoard.find({});
 
-    const jobBoards = [
+    if (existingJobBoards.length === 0) {
+    const dummyJobBoards = [
       {
         name: "LinkedIn",
         logoUrl: "./images/image17.webp",
@@ -548,11 +548,14 @@ const seedDatabase = async () => {
     ];
     
 
-    await jobBoard.insertMany(jobBoards);
-    console.log('Dummy job boards created.');
-    } catch (error) {
-    console.error('Error seeding database:', error);
+    await jobBoard.insertMany(dummyJobBoards);
+      console.log('Job boards seeded successfully');
+    } else {
+      console.log('Job boards already exist, skipping job board seeding.');
     }
+  } catch (err) {
+    console.log('Error while seeding database:', err);
+};
 };
 
 seedDatabase();
