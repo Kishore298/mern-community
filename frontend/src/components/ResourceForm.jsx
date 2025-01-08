@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const ResourceForm = () => {
   const [title, setTitle] = useState('');
@@ -9,18 +11,21 @@ const ResourceForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://mern-community-b5ik.onrender.com/api/add-resource', {
+      const response = await axios.post('https://mern-community-b5ik.onrender.com/api/resources', {
         title,
         url,
         description,
       });
       console.log('Resource added:', response.data);
+      
       // Reset form fields
       setTitle('');
       setUrl('');
       setDescription('');
+      toast.success('Resource added successfully!');
     } catch (error) {
       console.error('Error adding resource:', error);
+      toast.error('Failed to add resource. Please try again.');
     }
   };
 
@@ -69,3 +74,4 @@ const ResourceForm = () => {
 };
 
 export default ResourceForm;
+

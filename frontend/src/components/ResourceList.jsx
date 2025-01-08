@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';  
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const ResourceList = () => {
   const [resources, setResources] = useState([]);
@@ -8,11 +10,14 @@ const ResourceList = () => {
 
   useEffect(() => {
     const fetchResources = async () => {
+      toast.info('Loading resources...'); 
       try {
         const response = await axios.get('https://mern-community-b5ik.onrender.com/api/resources');
         setResources(response.data);
+        toast.success('Resources loaded successfully!'); 
       } catch (error) {
         console.error('Error fetching resources:', error);
+        toast.error('Error fetching resources. Please try again.'); 
       }
     };
 
@@ -21,6 +26,7 @@ const ResourceList = () => {
 
   const handleAddResourceClick = () => {
     navigate('/add-resource');
+    toast.info('Redirecting to add resource page...');
   };
 
   return (
