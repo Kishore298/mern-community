@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-
-// Import the specific Heroicon
-import { ArrowRightUpIcon } from "@heroicons/react/24/outline";
+import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 
 const JobBoardList = () => {
   const [jobBoards, setJobBoards] = useState([]);
@@ -56,7 +54,7 @@ const JobBoardList = () => {
                         {job.name}
                       </a>
                       {/* Icon next to the job link */}
-                      <ArrowRightUpIcon className="h-5 w-5 text-blue-600" />
+                      <ArrowUpRightIcon className="h-5 w-5 text-blue-600" />
                     </h3>
                     <p className="text-lg text-gray-500 mt-1">{job.description}</p>
                     <p className="text-md text-gray-400 mt-1">
