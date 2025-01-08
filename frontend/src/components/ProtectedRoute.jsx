@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ element }) => {
   const token = localStorage.getItem('token'); // Check if token exists
 
   // If no token, redirect to login page
@@ -9,7 +9,7 @@ const PrivateRoute = ({ children }) => {
     return <Navigate to="/" />;
   }
 
-  return children; // If authenticated, render children (protected route)
+  return element; // If authenticated, render the protected component
 };
 
 export default PrivateRoute;
