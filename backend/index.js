@@ -41,9 +41,8 @@ const seedDatabase = async () => {
   try {
     // Clear existing users
     await User.deleteMany();
-    await project.deleteMany();
     await jobBoard.deleteMany();
-    console.log('Existing users, projects and job boards are cleared.');;
+    console.log('Existing users and job boards are cleared.');;
 
     // Realistic user data related to MERN stack development
     const dummyUsers = [
