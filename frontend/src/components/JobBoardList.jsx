@@ -3,6 +3,9 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
+// Import the specific Heroicon
+import { ArrowRightUpIcon } from "@heroicons/react/24/outline";
+
 const JobBoardList = () => {
   const [jobBoards, setJobBoards] = useState([]);
 
@@ -44,7 +47,7 @@ const JobBoardList = () => {
                     className="h-20 w-20 object-contain"
                   />
                   <div>
-                    <h3 className="text-2xl font-semibold text-blue-600">
+                    <h3 className="text-2xl font-semibold text-blue-600 flex items-center space-x-2">
                       <a
                         href={job.link}
                         target="_blank"
@@ -52,10 +55,10 @@ const JobBoardList = () => {
                       >
                         {job.name}
                       </a>
+                      {/* Icon next to the job link */}
+                      <ArrowRightUpIcon className="h-5 w-5 text-blue-600" />
                     </h3>
-                    <p className="text-lg text-gray-500 mt-1">
-                      {job.description}
-                    </p>
+                    <p className="text-lg text-gray-500 mt-1">{job.description}</p>
                     <p className="text-md text-gray-400 mt-1">
                       Why try: {job.reasonToTry}
                     </p>
@@ -71,4 +74,5 @@ const JobBoardList = () => {
 };
 
 export default JobBoardList;
+
 
