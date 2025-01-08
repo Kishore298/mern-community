@@ -8,33 +8,34 @@ const ProjectList = ({ username }) => {
     const [projects, setProjects] = useState([]);
     const [editingProject, setEditingProject] = useState(null);
     const [editData, setEditData] = useState({
-        name: '',
+        title: '',
         description: '',
         githubLink: '',
         liveDemo: '',
         technologies: '',
     });
 
+    // Fetch projects from backend API
     useEffect(() => {
         const fetchProjects = async () => {
-          try {
-            const result = await axios.get('https://mern-community-b5ik.onrender.com/api/projects');
-            setProjects(result.data);
-            toast.success("Projects loaded successfully!");
-          } catch (error) {
-            toast.error("Failed to load projects.");
-            console.error("Error fetching projects:", error);
-          }
+            try {
+                const result = await axios.get('https://mern-community-b5ik.onrender.com/api/projects');
+                setProjects(result.data);
+                toast.success("Projects loaded successfully!");
+            } catch (error) {
+                toast.error("Failed to load projects.");
+                console.error("Error fetching projects:", error);
+            }
         };
-      
         fetchProjects();
-      }, []);
+    }, []);
 
+    // Handle editing a project
     const handleEdit = (id) => {
         const project = projects.find((p) => p._id === id);
         setEditingProject(id);
         setEditData({
-            title: project.title,
+            title: project.title,  // Changed 'name' to 'title' for consistency
             description: project.description,
             githubLink: project.githubLink,
             liveDemo: project.liveDemo,
@@ -42,15 +43,17 @@ const ProjectList = ({ username }) => {
         });
     };
 
+    // Handle changes in the edit form fields
     const handleEditChange = (e) => {
         const { name, value } = e.target;
         setEditData((prev) => ({ ...prev, [name]: value }));
     };
-    
+
+    // Handle form submission for editing project
     const handleEditSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`/api/projects/${editingProject}`, {
+            await axios.put(`https://mern-community-b5ik.onrender.com/api/projects/${editingProject}`, {
                 ...editData,
                 technologies: editData.technologies.split(',').map((tech) => tech.trim()),
                 createdBy: username,
@@ -69,25 +72,23 @@ const ProjectList = ({ username }) => {
             console.error("Error updating project:", error);
         }
     };
-    
-      
 
+    // Handle project deletion
     const handleDelete = async (id) => {
         const confirmDelete = window.confirm('Are you sure you want to delete this project?');
         if (confirmDelete) {
-          try {
-            await axios.delete(`https://mern-community-b5ik.onrender.com/api/projects/${id}`, {
-              data: { author: username },
-            });
-            setProjects(projects.filter((project) => project._id !== id));
-            toast.success("Project deleted successfully!");
-          } catch (error) {
-            toast.error("Error deleting project.");
-            console.error("Error deleting project:", error);
-          }
+            try {
+                await axios.delete(`https://mern-community-b5ik.onrender.com/api/projects/${id}`, {
+                    data: { createdBy: username },
+                });
+                setProjects(projects.filter((project) => project._id !== id));
+                toast.success("Project deleted successfully!");
+            } catch (error) {
+                toast.error("Error deleting project.");
+                console.error("Error deleting project:", error);
+            }
         }
-      };
-      
+    };
 
     return (
         <div className="space-y-6">
@@ -111,10 +112,10 @@ const ProjectList = ({ username }) => {
                         >
                             <input
                                 type="text"
-                                name="name"
-                                value={editData.name}
+                                name="title"  // Corrected to use 'title' for consistency
+                                value={editData.title}
                                 onChange={handleEditChange}
-                                placeholder="Project Name"
+                                placeholder="Project Title"
                                 className="w-full p-2 border rounded mb-2"
                                 required
                             />
@@ -165,7 +166,7 @@ const ProjectList = ({ username }) => {
                         </form>
                     ) : (
                         <div key={project._id} className="border p-4 rounded-lg shadow-lg bg-white">
-                            <h3 className="text-xl font-bold">{project.name}</h3>
+                            <h3 className="text-xl font-bold">{project.title}</h3>  {/* Corrected 'name' to 'title' */}
                             <p>{project.description}</p>
                             <p className="mt-2 text-sm text-gray-500">By {project.createdBy}</p>
                             <div className="mt-4 flex justify-between">
@@ -178,7 +179,7 @@ const ProjectList = ({ username }) => {
                                     </a>
                                 )}
                             </div>
-                            {project.author === username && (
+                            {project.createdBy === username && ( 
                                 <div className="mt-4 flex justify-between">
                                     <button
                                         onClick={() => handleEdit(project._id)}

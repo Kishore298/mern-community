@@ -75,7 +75,7 @@ const Navbar = () => {
 
       {/* Hamburger Menu Dropdown (Mobile) */}
       {isMenuOpen && (
-        <div className="absolute top-16 sticky left-0 text-md w-full bg-gray-800 p-4 md:hidden z-30">
+        <div className="absolute top-16 sticky left-0 text-md w-full bg-white/30 backdrop-blur-md z-20 md:hidden">
           <Link to="/home" className="block text-teal-400 py-2">
             Home
           </Link>
