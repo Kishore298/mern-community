@@ -426,29 +426,6 @@ const seedDatabase = async () => {
 
     const userModel = await User.find();
 
-    const dummyProjects = [
-      {
-        title: 'E-commerce Website',
-        description: 'Built a scalable e-commerce platform.',
-        technologiesUsed: ['React', 'Node.js', 'MongoDB', 'Express.js'],
-        projectLink: 'https://example.com/ecommerce',
-        githubLink: 'https://github.com/alicejohnson/ecommerce',
-        createdBy: userModel[0]._id, // Created by Alice
-      },
-      {
-        title: 'Social Media App',
-        description: 'Built a full-stack social media platform.',
-        technologiesUsed: ['React', 'Node.js', 'MongoDB', 'Express.js'],
-        projectLink: 'https://example.com/social-media',
-        githubLink: 'https://github.com/bobsmith/social-media',
-        createdBy: userModel[1]._id, // Created by Bob
-      },
-    ];
-    
-    // Insert dummy projects into the database
-    await project.insertMany(dummyProjects);
-    console.log('Dummy projects created.');
-
     const jobBoards = [
       {
         name: "LinkedIn",
