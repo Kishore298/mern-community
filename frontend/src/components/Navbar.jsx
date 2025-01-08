@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 
 const Navbar = () => {
@@ -13,7 +13,7 @@ const Navbar = () => {
     const token = localStorage.getItem("token");
     if (token) {
       try {
-        const decodedToken = jwt_decode(token);
+        const decodedToken = jwtDecode(token);
         setUsername(decodedToken?.name || "User");
       } catch (error) {
         console.error("Error decoding token:", error);
