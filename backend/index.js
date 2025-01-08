@@ -8,7 +8,6 @@ const jobBoardRoutes = require('./routes/jobBoardRoutes');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const User = require('./models/userModel');
-const project = require('./models/Project');
 const jobBoard = require('./models/JobBoard');
 const userModel = require('./models/userModel');
 
