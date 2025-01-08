@@ -9,7 +9,7 @@ const ResourceForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/resources', {
+      const response = await axios.post('https://mern-community-b5ik.onrender.com//api/resources', {
         title,
         url,
         description,

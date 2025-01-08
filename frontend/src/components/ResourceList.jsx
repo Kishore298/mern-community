@@ -7,7 +7,7 @@ const ResourceList = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await axios.get('/api/resources');
+        const response = await axios.get('https://mern-community-b5ik.onrender.com//api/resources');
         setResources(response.data);
       } catch (error) {
         console.error('Error fetching resources:', error);

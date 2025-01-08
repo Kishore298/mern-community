@@ -46,9 +46,6 @@ const Navbar = () => {
           <Link to="/job-board" className="block text-teal-400 py-2">
             Job Boards
           </Link>
-          <Link to="/project-list" className="block text-teal-400 py-2">
-            Works
-          </Link>
           <Link to="#about" className="block text-teal-400 py-2">
             About
           </Link>
@@ -87,9 +84,6 @@ const Navbar = () => {
           </Link>
           <Link to="/job-board" className="block text-teal-400 py-2">
             Job Boards
-          </Link>
-          <Link to="/project-list" className="block text-teal-400 py-2">
-            Works
           </Link>
           <Link to="#about" className="block text-teal-400 py-2">
             About

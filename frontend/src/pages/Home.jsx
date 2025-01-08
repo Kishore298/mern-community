@@ -131,7 +131,7 @@ const Home = () => {
                   clients or employers. Make your portfolio stand out!
                 </p>
                 <Link
-                  to="/projects"
+                  to="/#projects"
                   className="inline-block px-6 py-3 bg-teal-400 text-white font-bold rounded-lg hover:bg-teal-900"
                 >
                   Showcase Projects
