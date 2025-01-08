@@ -5,7 +5,6 @@ const authRoutes = require('./routes/authRoutes');
 const developerRoutes = require('./routes/developerRoutes');
 const resourceRoutes = require('./routes/resourceRoutes');
 const jobBoardRoutes = require('./routes/jobBoardRoutes');
-const projectRoutes = require('./routes/projectRoutes');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const User = require('./models/userModel');
@@ -26,7 +25,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api', developerRoutes);
 app.use('/api', resourceRoutes);
 app.use("/api/jobboards", jobBoardRoutes);
-app.use('/api', projectRoutes);
 
 // MongoDB connection
 mongoose
