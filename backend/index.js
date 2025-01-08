@@ -19,8 +19,7 @@ dotenv.config();
 // Middlewares
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'https://mern-community-b5ik.onrender.com', credentials: true }));
-
+app.use(cors());
 
 // Routes
 app.use('/api/auth', authRoutes);
